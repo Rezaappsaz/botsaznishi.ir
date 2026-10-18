@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش صفر تا صد ساخت ربات روبیکا 🤖</title>
+    <style>
+        :root {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, system-ui, sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        header {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 25px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card span {
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .card.disabled {
+            opacity: 0.55;
+        }
+
+        .btn.disabled {
+            background: var(--border);
+            color: var(--text-sub);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .card {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <header>
+        <h1>آموزش صفر تا صد ساخت ربات روبیکا 🤖</h1>
+        <div class="header-btns">
+            <button class="btn-icon" onclick="copyLink()">🔗 کپی لینک</button>
+            <button class="btn-icon" onclick="toggleTheme()">🌓 دارک/لایت</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <span>جلسه اول</span>
+            <a href="https://www.aparat.com/v/nvqz3by" target="_blank" class="btn">تماشای ویدیو</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه دوم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه سوم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه چهارم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه پنجم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه ششم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه هفتم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه هشتم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+    </div>
+
+    <footer>
+        حقوق محفوظ است © 2026 - botsaznishi.ir
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لینک سایت کپی شد! 📋');
+            });
+        }
+    </script>
+</body>
+</html>
