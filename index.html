@@ -6,137 +6,135 @@
     <title>آموزش صفر تا صد ساخت ربات روبیکا 🤖</title>
     <style>
         :root {
-            --bg-color: #f4f6f9;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --text-secondary: #666666;
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --copy-color: #10b981;
-            --copy-hover: #059669;
-            --border-color: #e5e7eb;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         [data-theme="dark"] {
-            --bg-color: #0f172a;
+            --bg-color: #0b0f19;
             --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-secondary: #94a3b8;
-            --primary-color: #6366f1;
-            --primary-hover: #818cf8;
-            --copy-color: #34d399;
-            --copy-hover: #10b981;
-            --border-color: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Tahoma, Arial, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            font-family: Tahoma, system-ui, sans-serif;
+            transition: background 0.3s, color 0.3s;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         header {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 25px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
         }
 
         h1 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .theme-toggle {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
+        .header-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: bold;
         }
 
-        .theme-toggle:hover {
-            background: var(--primary-hover);
+        .btn-icon:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
         }
 
-        .lessons-list {
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .lesson-card {
+        .card {
             background: var(--card-bg);
-            padding: 20px;
+            border: 1px solid var(--border);
+            padding: 16px 20px;
             border-radius: 12px;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
-        .lesson-info h3 {
-            font-size: 1.1rem;
-        }
-
-        .lesson-actions {
-            display: flex;
-            gap: 10px;
+        .card span {
+            font-weight: bold;
+            font-size: 1.05rem;
         }
 
         .btn {
-            background: var(--primary-color);
+            background: var(--accent);
             color: white;
             padding: 8px 16px;
             border-radius: 8px;
             text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
         .btn:hover {
-            background: var(--primary-hover);
+            background: var(--accent-hover);
         }
 
-        .btn-copy {
-            background: var(--copy-color);
-        }
-
-        .btn-copy:hover {
-            background: var(--copy-hover);
+        .card.disabled {
+            opacity: 0.55;
         }
 
         .btn.disabled {
-            background: var(--border-color);
-            color: var(--text-secondary);
+            background: var(--border);
+            color: var(--text-sub);
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -144,144 +142,93 @@
         footer {
             text-align: center;
             margin-top: 30px;
-            color: var(--text-secondary);
             font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .card {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+
+    <header>
+        <h1>آموزش صفر تا صد ساخت ربات روبیکا 🤖</h1>
+        <div class="header-btns">
+            <button class="btn-icon" onclick="copyLink()">🔗 کپی لینک</button>
+            <button class="btn-icon" onclick="toggleTheme()">🌓 دارک/لایت</button>
+        </div>
+    </header>
 
     <div class="container">
-        <header>
-            <h1>آموزش ساخت ربات روبیکا 🤖</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙 تغییر حالت</button>
-        </header>
-
-        <div class="lessons-list">
-            <!-- جلسه اول -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه اول</h3>
-                </div>
-                <div class="lesson-actions">
-                    <button class="btn btn-copy" onclick="copyLink('https://www.aparat.com/v/nvqz3by', this)">کپی لینک</button>
-                    <a href="https://www.aparat.com/v/nvqz3by" target="_blank" class="btn">تماشای ویدیو</a>
-                </div>
-            </div>
-
-            <!-- جلسه دوم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه دوم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه سوم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه سوم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه چهارم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه چهارم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه پنجم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه پنجم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه ششم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه ششم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه هفتم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه هفتم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه هشتم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه هشتم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
-
-            <!-- جلسه نهم -->
-            <div class="lesson-card">
-                <div class="lesson-info">
-                    <h3>جلسه نهم</h3>
-                </div>
-                <div class="lesson-actions">
-                    <a href="#" class="btn disabled">🔒 به‌زودی...</a>
-                </div>
-            </div>
+        <div class="card">
+            <span>جلسه اول</span>
+            <a href="https://www.aparat.com/v/nvqz3by" target="_blank" class="btn">تماشای ویدیو</a>
         </div>
 
-        <footer>
-            <p>تمامی حقوق محفوظ است | botsaznihi.ir</p>
-        </footer>
+        <div class="card disabled">
+            <span>جلسه دوم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه سوم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه چهارم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه پنجم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه ششم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه هفتم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه هشتم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
     </div>
+
+    <footer>
+        حقوق محفوظ است © 2026 - botsaznishi.ir
+    </footer>
 
     <script>
         function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
         }
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-
-        function copyLink(url, btnElement) {
-            navigator.clipboard.writeText(url).then(() => {
-                const originalText = btnElement.innerText;
-                btnElement.innerText = 'کپی شد! ✅';
-                setTimeout(() => {
-                    btnElement.innerText = originalText;
-                }, 2000);
-            }).catch(err => {
-                alert('خطا در کپی کردن لینک');
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لینک سایت کپی شد! 📋');
             });
         }
     </script>
