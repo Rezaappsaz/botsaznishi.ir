@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آموزش صفر تا صد ساخت ربات روبیکا 🤖</title>
+
     <style>
         :root {
             --bg-color: #f1f5f9;
@@ -13,7 +14,8 @@
             --accent: #2563eb;
             --accent-hover: #1d4ed8;
             --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                      0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         [data-theme="dark"] {
@@ -122,6 +124,10 @@
             font-size: 0.85rem;
             font-weight: bold;
             white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn:hover {
@@ -139,6 +145,34 @@
             pointer-events: none;
         }
 
+        .about-section {
+            max-width: 700px;
+            width: 100%;
+            margin: 25px auto 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-section h2 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .about-section p {
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .about-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         footer {
             text-align: center;
             margin-top: 30px;
@@ -152,31 +186,42 @@
                 gap: 15px;
                 text-align: center;
             }
+
             .card {
                 flex-direction: column;
                 gap: 12px;
                 text-align: center;
             }
+
             .btn {
                 width: 100%;
+            }
+
+            .about-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body data-theme="light">
 
     <header>
         <h1>آموزش صفر تا صد ساخت ربات روبیکا 🤖</h1>
+
         <div class="header-btns">
             <button class="btn-icon" onclick="copyLink()">🔗 کپی لینک</button>
             <button class="btn-icon" onclick="toggleTheme()">🌓 دارک/لایت</button>
         </div>
     </header>
 
-    <div class="container">
+    <main class="container">
         <div class="card">
             <span>جلسه اول</span>
-            <a href="https://www.aparat.com/v/nvqz3by" target="_blank" class="btn">تماشای ویدیو</a>
+            <a href="https://www.aparat.com/v/nvqz3by"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn">تماشای ویدیو</a>
         </div>
 
         <div class="card disabled">
@@ -213,7 +258,33 @@
             <span>جلسه هشتم</span>
             <a href="#" class="btn disabled">🔒 به‌زودی...</a>
         </div>
-    </div>
+
+        <div class="card disabled">
+            <span>جلسه نهم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+
+        <div class="card disabled">
+            <span>جلسه دهم</span>
+            <a href="#" class="btn disabled">🔒 به‌زودی...</a>
+        </div>
+    </main>
+
+    <section class="about-section">
+        <h2>درباره ما</h2>
+        <p>نام سازنده: رضا عدالت محب</p>
+
+        <div class="about-buttons">
+            <button class="btn" onclick="showNotReady()">کد آماده</button>
+
+            <button class="btn" onclick="showNotReady()">ساخت ربات رایگان</button>
+
+            <a class="btn"
+               href="https://rubika.ir/Reza009006006"
+               target="_blank"
+               rel="noopener noreferrer">پشتیبانی</a>
+        </div>
+    </section>
 
     <footer>
         حقوق محفوظ است © 2026 - botsaznishi.ir
@@ -222,15 +293,28 @@
     <script>
         function toggleTheme() {
             const body = document.body;
-            const current = body.getAttribute('data-theme');
-            body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+            const currentTheme = body.getAttribute('data-theme');
+
+            body.setAttribute(
+                'data-theme',
+                currentTheme === 'light' ? 'dark' : 'light'
+            );
         }
 
         function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('لینک سایت کپی شد! 📋');
-            });
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                    alert('لینک سایت کپی شد! 📋');
+                })
+                .catch(() => {
+                    alert('کپی لینک انجام نشد. لطفاً آدرس صفحه را دستی کپی کنید.');
+                });
+        }
+
+        function showNotReady() {
+            alert('این بخش هنوز آماده نیست.');
         }
     </script>
+
 </body>
 </html>
