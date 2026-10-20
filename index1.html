@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نماشو | دنیای ویدیوهای تو</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap");
+
+    :root {
+      --bg: #0c0d12;
+      --panel: #14161e;
+      --panel-2: #1c1f29;
+      --text: #f6f6fa;
+      --muted: #9295a5;
+      --border: rgba(255,255,255,.09);
+      --accent: #b8ff3b;
+      --pink: #ff4fa3;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 85% 0%, rgba(184,255,59,.08), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Vazirmatn", Tahoma, sans-serif;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 5%;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(12,13,18,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 180px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -.5px;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #10120c;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      transform: rotate(-6deg);
+      box-shadow: 0 0 28px rgba(184,255,59,.2);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: -4px;
+    }
+
+    .search {
+      flex: 1;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 13px 46px 13px 16px;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: rgba(184,255,59,.55);
+      box-shadow: 0 0 0 3px rgba(184,255,59,.08);
+    }
+
+    .search span {
+      position: absolute;
+      right: 16px;
+      top: 10px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 11px 16px;
+      color: #11130c;
+      background: var(--accent);
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .btn.ghost {
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+    }
+
+    .layout {
+      width: min(1400px, 92%);
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 30px;
+    }
+
+    aside {
+      position: sticky;
+      top: 100px;
+      height: max-content;
+    }
+
+    .side-card {
+      background: rgba(20,22,30,.72);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .side-title {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 10px 12px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 13px;
+      color: #d6d7df;
+      cursor: pointer;
+      transition: .18s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: rgba(184,255,59,.1);
+      color: var(--accent);
+    }
+
+    .nav-item .icon {
+      width: 25px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .side-note {
+      margin-top: 14px;
+      padding: 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .hero {
+      min-height: 220px;
+      padding: 30px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 15% 30%, rgba(255,79,163,.35), transparent 30%),
+        radial-gradient(circle at 75% 15%, rgba(184,255,59,.25), transparent 32%),
+        linear-gradient(120deg, #242638, #171923 55%, #292231);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero::after {
+      content: "▶";
+      position: absolute;
+      left: 8%;
+      top: 50%;
+      transform: translateY(-50%) rotate(-12deg);
+      font-size: 125px;
+      color: rgba(255,255,255,.08);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      background: rgba(184,255,59,.11);
+      border: 1px solid rgba(184,255,59,.18);
+      border-radius: 100px;
+      padding: 5px 11px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.4;
+    }
+
+    .hero p {
+      color: #c0c1ca;
+      margin: 0 0 18px;
+      line-height: 1.9;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 28px 0 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 7px;
+      margin-bottom: 16px;
+    }
+
+    .filter {
+      white-space: nowrap;
+      color: #c8c9d2;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 15px;
+    }
+
+    .filter.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #15170f;
+      font-weight: 700;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      transition: .2s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(184,255,59,.3);
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: #272a35;
+      cursor: pointer;
+    }
+
+    .thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .3s;
+    }
+
+    .video-card:hover .thumb img {
+      transform: scale(1.04);
+    }
+
+    .duration {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: rgba(0,0,0,.78);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 11px;
+    }
+
+    .play {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 35px;
+      opacity: 0;
+      background: rgba(0,0,0,.18);
+      transition: .2s;
+    }
+
+    .thumb:hover .play {
+      opacity: 1;
+    }
+
+    .card-info {
+      display: flex;
+      gap: 11px;
+      padding: 13px;
+    }
+
+    .avatar {
+      width: 39px;
+      height: 39px;
+      flex: 0 0 39px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #16180f;
+      background: linear-gradient(135deg, var(--accent), #fff28a);
+      font-weight: 800;
+    }
+
+    .card-text {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .card-text h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .empty {
+      display: none;
+      color: var(--muted);
+      text-align: center;
+      padding: 50px 15px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    /* پنجره پخش ویدیو */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: rgba(0,0,0,.76);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal.show {
+      display: grid;
+      place-items: start center;
+    }
+
+    .modal-box {
+      width: min(850px, 100%);
+      margin: 25px auto;
+      background: #13151d;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .modal-video {
+      width: 100%;
+      max-height: 480px;
+      background: #050505;
+      display: block;
+    }
+
+    .modal-content {
+      padding: 20px;
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .modal-top h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .close {
+      color: white;
+      background: var(--panel-2);
+      border: 0;
+      border-radius: 10px;
+      padding: 8px 12px;
+    }
+
+    .video-description {
+      color: #c1c3ce;
+      line-height: 2;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .creator-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 17px 0;
+      padding: 13px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .creator-row .creator-name {
+      flex: 1;
+      font-weight: 700;
+    }
+
+    .like-btn {
+      color: #fff;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 13px;
+    }
+
+    .like-btn.liked {
+      color: #ff6c9e;
+      border-color: rgba(255,108,158,.35);
+      background: rgba(255,108,158,.1);
+    }
+
+    .follow-btn {
+      color: #15170f;
+      background: var(--accent);
+      border: 0;
+      border-radius: 11px;
+      padding: 9px 13px;
+      font-weight: 700;
+    }
+
+    .follow-btn.following {
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+    }
+
+    .comments h3 {
+      margin: 18px 0 12px;
+      font-size: 16px;
+    }
+
+    .comment-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .comment-form input {
+      flex: 1;
+      min-width: 0;
+      color: white;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .comment {
+      padding: 12px;
+      border-radius: 13px;
+      background: var(--panel);
+      color: #dedfe6;
+      font-size: 13px;
+    }
+
+    .comment strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+
+    /* پنجره آپلود */
+    .upload-box {
+      width: min(520px, 100%);
+      margin: 60px auto;
+      background: #151720;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    .upload-box h2 {
+      margin: 0 0 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 14px;
+      color: #d8d9e0;
+      font-size: 13px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      color: white;
+      background: #0e1016;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .field input[type="file"] {
+      padding: 10px;
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 9px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 50%;
+      transform: translate(50%, 20px);
+      z-index: 50;
+      background: var(--accent);
+      color: #17190f;
+      border-radius: 12px;
+      padding: 11px 17px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(50%, 0);
+    }
+
+    @media (max-width: 1000px) {
+      .video-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .layout {
+        grid-template-columns: 190px minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        height: auto;
+        min-height: 68px;
+        padding: 12px 4%;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        min-width: auto;
+        font-size: 18px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .brand-mark {
+        width: 35px;
+        height: 35px;
+      }
+
+      .search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+      }
+
+      .top-actions {
+        margin-right: auto;
+      }
+
+      .top-actions .ghost {
+        display: none;
+      }
+
+      .layout {
+        width: 92%;
+        display: block;
+        margin-top: 18px;
+      }
+
+      aside {
+        position: static;
+        margin-bottom: 18px;
+      }
+
+      .side-card {
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+        padding: 8px;
+      }
+
+      .side-title,
+      .side-note {
+        display: none;
+      }
+
+      .nav-item {
+        white-space: nowrap;
+        padding: 9px 12px;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 205px;
+        padding: 22px;
+      }
+
+      .hero::after {
+        left: 4%;
+        font-size: 85px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">▶</div>
+        <div>
+          نماشو
+          <small>ویدیوهایی که می‌چسبن</small>
+        </div>
+      </div>
+
+      <div class="search">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="دنبال چی می‌گردی؟" />
+      </div>
+
+      <div class="top-actions">
+        <button class="btn ghost" onclick="showToast('ورود کاربران در نسخه‌ی بعدی اضافه می‌شود')">ورود</button>
+        <button class="btn" onclick="openUpload()">＋ آپلود ویدیو</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside>
+        <div class="side-card">
+          <div class="side-title">منو</div>
+          <div class="nav-item active" onclick="setNav(this, 'همه')"><span class="icon">⌂</span> خانه</div>
+          <div class="nav-item" onclick="setNav(this, 'دنبال‌شده‌ها')"><span class="icon">♡</span> دنبال‌شده‌ها</div>
+          <div class="nav-item" onclick="setNav(this, 'تازه‌ها')"><span class="icon">✦</span> تازه‌ها</div>
+          <div class="nav-item" onclick="setNav(this, 'محبوب‌ها')"><span class="icon">♨</span> محبوب‌ها</div>
+        </div>
+        <div class="side-note">
+          اینجا جای ویدیوهای خوبه؛ از آموزش و بازی تا گربه‌هایی که فکر می‌کنن صاحب‌خونه‌ان! 🐈
+        </div>
+      </aside>
+
+      <main>
+        <section class="hero">
+          <div class="hero-content">
+            <span class="tag">دنیای ویدیو، با حال‌وهوای خودت</span>
+            <h1>چیزی برای دیدن پیدا کن 🎬</h1>
+            <p>ویدیوهای تازه را کشف کن، سازنده‌های محبوبت را دنبال کن و خودت هم چیزی برای نمایش داشته باش.</p>
+            <button class="btn" onclick="document.getElementById('videoSection').scrollIntoView({behavior:'smooth'})">
+              بزن بریم تماشا
+            </button>
+          </div>
+        </section>
+
+        <div class="section-head" id="videoSection">
+          <h2 id="sectionTitle">ویدیوهای پیشنهادی</h2>
+          <span id="videoCount"></span>
+        </div>
+
+        <div class="filters">
+          <button class="filter active" onclick="setCategory(this, 'همه')">همه</button>
+          <button class="filter" onclick="setCategory(this, 'سرگرمی')">سرگرمی</button>
+          <button class="filter" onclick="setCategory(this, 'آموزش')">آموزش</button>
+          <button class="filter" onclick="setCategory(this, 'بازی')">بازی</button>
+          <button class="filter" onclick="setCategory(this, 'موسیقی')">موسیقی</button>
+          <button class="filter" onclick="setCategory(this, 'سفر')">سفر</button>
+        </div>
+
+        <div class="video-grid" id="videoGrid"></div>
+        <div class="empty" id="emptyState">چیزی پیدا نشد! یه عبارت دیگه امتحان کن 🔎</div>
+      </main>
+    </div>
+  </div>
+
+  <!-- پنجره‌ی پخش -->
+  <div class="modal" id="watchModal" onclick="closeOnBackdrop(event, 'watchModal')">
+    <div class="modal-box">
+      <video class="modal-video" id="player" controls playsinline></video>
+      <div class="modal-content">
+        <div class="modal-top">
+          <h2 id="watchTitle"></h2>
+          <button class="close" onclick="closeModal('watchModal')">✕</button>
+        </div>
+        <p class="meta" id="watchMeta"></p>
+        <div class="creator-row">
+          <div class="avatar" id="watchAvatar">ن</div>
+          <div class="creator-name" id="watchCreator"></div>
+          <button class="follow-btn" id="followBtn" onclick="toggleFollow()">＋ دنبال‌کردن</button>
+          <button class="like-btn" id="likeBtn" onclick="toggleLike()">♡ <span id="likeCount">0</span></button>
+        </div>
+        <p class="video-description" id="watchDescription"></p>
+        <div class="comments">
+          <h3>دیدگاه‌ها 💬</h3>
+          <form class="comment-form" onsubmit="addComment(event)">
+            <input id="commentInput" maxlength="300" placeholder="دیدگاهت رو بنویس..." required />
+            <button class="btn">ثبت</button>
+          </form>
+          <div class="comment-list" id="commentList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- پنجره‌ی آپلود -->
+  <div class="modal" id="uploadModal" onclick="closeOnBackdrop(event, 'uploadModal')">
+    <form class="upload-box" onsubmit="uploadVideo(event)">
+      <h2>ویدیوت رو منتشر کن ✨</h2>
+      <label class="field">
+        عنوان ویدیو
+        <input id="uploadTitle" maxlength="90" required placeholder="مثلاً: آموزش قهوه‌ی خوشمزه" />
+      </label>
+      <label class="field">
+        توضیحات
+        <textarea id="uploadDescription" maxlength="1000" placeholder="درباره‌ی ویدیوت بنویس..."></textarea>
+      </label>
+      <label class="field">
+        دسته‌بندی
+        <select id="uploadCategory">
+          <option>سرگرمی</option>
+          <option>آموزش</option>
+          <option>بازی</option>
+          <option>موسیقی</option>
+          <option>سفر</option>
+        </select>
+      </label>
+      <label class="field">
+        فایل ویدیو
+        <input id="uploadFile" type="file" accept="video/*" required />
+      </label>
+      <label class="field">
+        تصویر بندانگشتی (اختیاری)
+        <input id="uploadThumb" type="file" accept="image/*" />
+      </label>
+      <div class="upload-actions">
+        <button type="button" class="btn ghost" onclick="closeModal('uploadModal')">انصراف</button>
+        <button class="btn">انتشار ویدیو</button>
+      </div>
+      <p class="meta">در این نسخه‌ی نمایشی، ویدیو فقط در همین مرورگر و همین دستگاه در دسترس است.</p>
+    </form>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const sampleVideos = [
+      {
+        id: "sample-1",
+        title: "یه روز آروم کنار دریا؛ فقط موج و آرامش 🌊",
+        creator: "نیلوفر",
+        category: "سفر",
+        views: 12800,
+        likes: 428,
+        duration: "08:42",
+        description: "یه گشت کوتاه و آروم کنار دریا. شما کدوم ساحل رو بیشتر دوست دارید؟",
+        thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: [
+          { name: "آراد", text: "چه منظره‌ی قشنگی! 🌊" },
+          { name: "سارا", text: "برای دیدنش همین الان دلم سفر خواست." }
+        ]
+      },
+      {
+        id: "sample-2",
+        title: "سه ترفند ساده برای عکس‌های بهتر با موبایل 📸",
+        creator: "استودیو کادر",
+        category: "آموزش",
+        views: 7650,
+        likes: 302,
+        duration: "05:18",
+        description: "با نور طبیعی، تمیز کردن لنز و کمی توجه به کادر، عکس‌های موبایلی‌ات را بهتر کن.",
+        thumb: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: [
+          { name: "مهدی", text: "ترفند نور خیلی کاربردی بود." }
+        ]
+      },
+      {
+        id: "sample-3",
+        title: "وقتی گربه تصمیم می‌گیره استریمر بشه 😹",
+        creator: "پشمک تی‌وی",
+        category: "سرگرمی",
+        views: 34900,
+        likes: 2401,
+        duration: "02:36",
+        description: "استریمر جدید وارد می‌شود؛ فعلاً با کیبورد قهر است و با صندلی رفیق! 🐈",
+        thumb: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: [
+          { name: "رها", text: "این گربه از من حرفه‌ای‌تره 😂" },
+          { name: "مانی", text: "قسمت بعدی رو هم بذار!" }
+        ]
+      },
+      {
+        id: "sample-4",
+        title: "ساخت یک میز کار مینیمال با هزینه‌ی کم 🪴",
+        creator: "خانه‌ی جمع‌وجور",
+        category: "آموزش",
+        views: 5100,
+        likes: 198,
+        duration: "11:07",
+        description: "چند ایده‌ی ساده برای ساختن فضای کار مرتب و دلنشین، بدون خالی کردن حساب بانکی!",
+        thumb: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: []
+      },
+      {
+        id: "sample-5",
+        title: "گیم‌پلی بامزه؛ این مرحله قرار بود آسون باشه 🎮",
+        creator: "پیکسل‌باز",
+        category: "بازی",
+        views: 19300,
+        likes: 887,
+        duration: "14:22",
+        description: "یک مرحله‌ی کوتاه بازی که به شکل عجیبی تبدیل شد به یک ماجرای طولانی!",
+        thumb: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: [
+          { name: "پوریا", text: "اونجا که افتادی خیلی خندیدم 😂" }
+        ]
+      },
+      {
+        id: "sample-6",
+        title: "چند دقیقه موسیقی برای حال بهتر 🎹",
+        creator: "آوای شب",
+        category: "موسیقی",
+        views: 9200,
+        likes: 654,
+        duration: "04:51",
+        description: "یک اجرای کوتاه و بی‌کلام برای وقت‌هایی که لازم داری چند دقیقه از شلوغی فاصله بگیری.",
+        thumb: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=85",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        comments: []
+      }
+    ];
+
+    let videos = loadVideos();
+    let activeVideoId = null;
+    let selectedCategory = "همه";
+    let currentNav = "همه";
+    const followedCreators = new Set(JSON.parse(localStorage.getItem("namasho-follows") || "[]"));
+    const likedVideos = new Set(JSON.parse(localStorage.getItem("namasho-likes") || "[]"));
+
+    function loadVideos() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("namasho-videos") || "null");
+        return saved || sampleVideos;
+      } catch {
+        return sampleVideos;
+      }
+    }
+
+    function saveVideos() {
+      try {
+        localStorage.setItem("namasho-videos", JSON.stringify(videos));
+      } catch {
+        showToast("فضای مرورگر پر شده؛ این ویدیو ذخیره نشد.");
+      }
+    }
+
+    function formatViews(number) {
+      return Number(number || 0).toLocaleString("fa-IR");
+    }
+
+    function renderVideos() {
+      const grid = document.getElementById("videoGrid");
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      let filtered = videos.filter(video => {
+        const matchesSearch =
+          video.title.toLowerCase().includes(query) ||
+          video.creator.toLowerCase().includes(query) ||
+          (video.description || "").toLowerCase().includes(query);
+
+        const matchesCategory =
+          selectedCategory === "همه" || video.category === selectedCategory;
+
+        let matchesNav = true;
+        if (currentNav === "دنبال‌شده‌ها") {
+          matchesNav = followedCreators.has(video.creator);
+        } else if (currentNav === "محبوب‌ها") {
+          matchesNav = Number(video.likes || 0) >= 500;
+        } else if (currentNav === "تازه‌ها") {
+          matchesNav = Boolean(video.isUploaded);
+        }
+
+        return matchesSearch && matchesCategory && matchesNav;
+      });
+
+      if (currentNav === "تازه‌ها") {
+        filtered = filtered.reverse();
+      }
+
+      document.getElementById("videoCount").textContent =
+        `${formatViews(filtered.length)} ویدیو`;
+
+      grid.innerHTML = filtered.map(video => `
+        <article class="video-card">
+          <div class="thumb" onclick="openVideo('${video.id}')">
+            <img src="${escapeHtml(video.thumb)}" alt="${escapeHtml(video.title)}"
+                 onerror="this.src='https://placehold.co/800x450/20232d/ffffff?text=Namasho'">
+            <span class="duration">${escapeHtml(video.duration || "ویدیوی تازه")}</span>
+            <span class="play">▶</span>
+          </div>
+          <div class="card-info">
+            <div class="avatar">${escapeHtml((video.creator || "ن").slice(0,1))}</div>
+            <div class="card-text">
+              <h3>${escapeHtml(video.title)}</h3>
+              <div class="meta">${escapeHtml(video.creator)} · ${formatViews(video.views)} بازدید</div>
+              <div class="meta">${escapeHtml(video.category || "عمومی")}</div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      document.getElementById("emptyState").style.display =
+        filtered.length ? "none" : "block";
+    }
+
+    function openVideo(id) {
+      const video = videos.find(item => item.id === id);
+      if (!video) return;
+
+      activeVideoId = id;
+      video.views = Number(video.views || 0) + 1;
+      saveVideos();
+
+      document.getElementById("watchTitle").textContent = video.title;
+      document.getElementById("watchMeta").textContent =
+        `${video.category || "عمومی"} · ${formatViews(video.views)} بازدید`;
+      document.getElementById("watchCreator").textContent = video.creator;
+      document.getElementById("watchAvatar").textContent = (video.creator || "ن").slice(0,1);
+      document.getElementById("watchDescription").textContent =
+        video.description || "توضیحی برای این ویدیو نوشته نشده.";
+      document.getElementById("likeCount").textContent = formatViews(video.likes);
+      document.getElementById("likeBtn").classList.toggle("liked", likedVideos.has(id));
+      document.getElementById("followBtn").classList.toggle("following", followedCreators.has(video.creator));
+      document.getElementById("followBtn").textContent =
+        followedCreators.has(video.creator) ? "✓ دنبال می‌کنی" : "＋ دنبال‌کردن";
+
+      const player = document.getElementById("player");
+      player.src = video.src;
+      player.load();
+
+      renderComments(video);
+      document.getElementById("watchModal").classList.add("show");
+      renderVideos();
+    }
+
+    function renderComments(video) {
+      const comments = video.comments || [];
+      const list = document.getElementById("commentList");
+      list.innerHTML = comments.length
+        ? comments.map(comment => `
+            <div class="comment">
+              <strong>${escapeHtml(comment.name)}</strong>
+              ${escapeHtml(comment.text)}
+            </div>
+          `).join("")
+        : '<div class="meta">هنوز دیدگاهی ثبت نشده؛ اولین نفر باش!</div>';
+    }
+
+    function toggleLike() {
+      const video = videos.find(item => item.id === activeVideoId);
+      if (!video) return;
+
+      if (likedVideos.has(activeVideoId)) {
+        likedVideos.delete(activeVideoId);
+        video.likes = Math.max(0, Number(video.likes || 0) - 1);
+      } else {
+        likedVideos.add(activeVideoId);
+        video.likes = Number(video.likes || 0) + 1;
+      }
+
+      localStorage.setItem("namasho-likes", JSON.stringify([...likedVideos]));
+      saveVideos();
+      document.getElementById("likeCount").textContent = formatViews(video.likes);
+      document.getElementById("likeBtn").classList.toggle("liked", likedVideos.has(activeVideoId));
+      renderVideos();
+    }
+
+    function toggleFollow() {
+      const video = videos.find(item => item.id === activeVideoId);
+      if (!video) return;
+
+      if (followedCreators.has(video.creator)) {
+        followedCreators.delete(video.creator);
+      } else {
+        followedCreators.add(video.creator);
+      }
+
+      localStorage.setItem("namasho-follows", JSON.stringify([...followedCreators]));
+      const isFollowing = followedCreators.has(video.creator);
+      document.getElementById("followBtn").classList.toggle("following", isFollowing);
+      document.getElementById("followBtn").textContent =
+        isFollowing ? "✓ دنبال می‌کنی" : "＋ دنبال‌کردن";
+      renderVideos();
+    }
+
+    function addComment(event) {
+      event.preventDefault();
+      const input = document.getElementById("commentInput");
+      const text = input.value.trim();
+      const video = videos.find(item => item.id === activeVideoId);
+      if (!text || !video) return;
+
+      video.comments = video.comments || [];
+      video.comments.unshift({ name: "کاربر مهمان", text });
+      saveVideos();
+      input.value = "";
+      renderComments(video);
+    }
+
+    function openUpload() {
+      document.getElementById("uploadModal").classList.add("show");
+    }
+
+    function uploadVideo(event) {
+      event.preventDefault();
+
+      const file = document.getElementById("uploadFile").files[0];
+      const thumbFile = document.getElementById("uploadThumb").files[0];
+      if (!file) {
+        showToast("اول یک فایل ویدیویی انتخاب کن.");
+        return;
+      }
+
+      const videoUrl = URL.createObjectURL(file);
+      const thumbUrl = thumbFile
+        ? URL.createObjectURL(thumbFile)
+        : "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=900&q=85";
+
+      const newVideo = {
+        id: "upload-" + Date.now(),
+        title: document.getElementById("uploadTitle").value.trim(),
+        creator: "کاربر مهمان",
+        category: document.getElementById("uploadCategory").value,
+        views: 0,
+        likes: 0,
+        duration: "ویدیوی تازه",
+        description: document.getElementById("uploadDescription").value.trim(),
+        thumb: thumbUrl,
+        src: videoUrl,
+        comments: [],
+        isUploaded: true
+      };
+
+      videos.unshift(newVideo);
+
+      // فایل ویدیو داخل localStorage ذخیره نمی‌شود؛ فقط اطلاعات ویدیو باقی می‌ماند.
+      // برای آپلود واقعی باید بک‌اند و فضای ذخیره‌سازی اضافه شود.
+      saveVideos();
+
+      event.target.reset();
+      closeModal("uploadModal");
+      currentNav = "همه";
+      selectedCategory = "همه";
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+      document.querySelector(".nav-item").classList.add("active");
+      document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+      document.querySelector(".filter").classList.add("active");
+
+      renderVideos();
+      showToast("ویدیوت آماده‌ی تماشا شد! 🎉");
+      openVideo(newVideo.id);
+    }
+
+    function setCategory(button, category) {
+      selectedCategory = category;
+      document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+      button.classList.add("active");
+      renderVideos();
+    }
+
+    function setNav(button, nav) {
+      currentNav = nav === "خانه" ? "همه" : nav;
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+      button.classList.add("active");
+
+      const titles = {
+        "همه": "ویدیوهای پیشنهادی",
+        "دنبال‌شده‌ها": "ویدیوهای دنبال‌شده‌ها",
+        "تازه‌ها": "تازه‌ترین ویدیوها",
+        "محبوب‌ها": "ویدیوهای محبوب"
+      };
+
+      document.getElementById("sectionTitle").textContent = titles[currentNav] || "ویدیوها";
+      renderVideos();
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("show");
+      if (id === "watchModal") {
+        const player = document.getElementById("player");
+        player.pause();
+        player.removeAttribute("src");
+        player.load();
+      }
+    }
+
+    function closeOnBackdrop(event, id) {
+      if (event.target.id === id) closeModal(id);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[char]);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", renderVideos);
+
+    renderVideos();
+  </script>
+</body>
+</html>
